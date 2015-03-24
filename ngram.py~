@@ -1,0 +1,5 @@
+def unigram(sentence):
+    return sentence.split(" ")
+
+def bigram(sentence):
+    return zip(unigram(sentence),unigram(sentence)[1:])
