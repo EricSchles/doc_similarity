@@ -127,9 +127,10 @@ To understand a naive bayesian classifier it's best to understand the steps invo
 
 In this case we split each piece of text by mapping the words to numbers: 
 
-"Hello there, I'm Eric" -> Freq(Hello) = 1, Freq(there,) = 1, Freq(I'm) = 1, Freq(Eric) = 1 ->
+```
+"Hello there, I'm Eric" -> Freq(Hello) = 1,  Freq(there,) = 1,  Freq(I'm) = 1, Freq(Eric) = 1 ->
 prob(Hello) = 1/4, prob(there,) = 1/4, prob(I'm) = 1/4, prob(Eric) = 1/4 
- 
+```
 We then apply one of a set of functions (typically a [maximium likelihood estimator](http://en.wikipedia.org/wiki/Maximum_likelihood)) to these mathematical quantities and say this maps to the label.  In this case "greeting"
 
 So we can sort of think of this as:
