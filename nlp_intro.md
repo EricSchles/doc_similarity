@@ -113,6 +113,7 @@ To understand a naive bayesian classifier it's best to understand the steps invo
 
 1) hand label a set of texts as certain mappings:
 
+```
 [ ("Hello there, I'm Eric","greeting"),
   ("Hi there, I'm Jane","greeting"),
   ("Hi, how are you?","greeting"),
@@ -121,7 +122,7 @@ To understand a naive bayesian classifier it's best to understand the steps invo
   ("Goodbye","parting"),
   ("parting is such sweet sore, but I'm sleepy, so get out.","parting")
 ]
-
+```
 2) Transform each word in the training set so that it can be described as a set of independent proabilities, that map to a given label:
 
 In this case we split each piece of text by mapping the words to numbers: 
