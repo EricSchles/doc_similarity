@@ -14,16 +14,18 @@ Hi, my name is Eric.  I work Syncano and deeply believe all people have the righ
 
 A 1-gram of that sentence would be:
 
+```
 [('Hi,'), ('my'), ('name'), ('is'), ('Eric.'), ('I'), ('work'), ('Syncano'), ('and'), ('deeply'), ('believe'), ('all'), ('people'), ('have'), ('the'), ('right'), ('to'), ('freedom.')]
+```
 
 A 2-gram of that sentence would be:
-
+```
 [('Hi,', 'my'), ('my', 'name'), ('name', 'is'), ('is', 'Eric.'), ('Eric.', 'I'), ('I', 'work'), ('work', 'Syncano'), ('Syncano', 'and'), ('and', 'deeply'), ('deeply', 'believe'), ('believe', 'all'), ('all', 'people'), ('people', 'have'), ('have', 'the'), ('the', 'right'), ('right', 'to'), ('to', 'freedom.')]
-
+```
 A 3-gram of that sentence would be:
-
+```
 [('Hi,', 'my', 'name'), ('my', 'name', 'is'), ('name', 'is', 'Eric.'), ('is', 'Eric.', 'I'), ('Eric.', 'I', 'work'), ('I', 'work', 'Syncano'), ('work', 'Syncano', 'and'), ('Syncano', 'and', 'deeply'), ('and', 'deeply', 'believe'), ('deeply', 'believe', 'all'), ('believe', 'all', 'people'), ('all', 'people', 'have'), ('people', 'have', 'the'), ('have', 'the', 'right'), ('the', 'right', 'to'), ('right', 'to', 'freedom.')]
-
+```
 As you can see the number in front of gram determines how many elements each split we have.  Also, we only increment the element by one in the sentence.  This creates small phrases, which make up the elements of the n-gram.
 
 Here's the code I used to generate the above sequences:
