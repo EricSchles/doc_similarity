@@ -183,28 +183,68 @@ Some important asides:
 * A Naive Bayesian Classifier doesn't assume order matters.  
 * A Naive Bayesian Classifiers assumes that each word event is unrelated to other words in a given set - word events are considered to be independent.
 
+Power uses of such a text classification system is for classifying text in twitter, establishing the polarity of a piece of text, and many more applications.
+
+Where Naive Bayesian Classifiers tend to be a less elegant solution is document classification.  
+
+Say you only have one piece of text and need to be able to compare it against a large set of other texts.  It may be difficult to determine correctly whether or not this given piece of text will do a good job at this.  
 
 ##Document similarity
 
-Document similarity:
+For document similarity we tend to make use of a technique known as document distance.  This technique analyzes a piece of text and assigns it a numerical score, other documents are then scored against this document to see how "distant" (or dissimiliar) the documents are.
 
-tf-idf: http://stackoverflow.com/questions/12118720/python-tf-idf-cosine-to-find-document-similarity
+The simiplest such approach is the cosine similarity of two documents.  The way we apply this technique is by first constructing a vector of the two documents in question (in a very similar fashion to how we did above) and then apply the following formula:
 
-http://www.academia.edu/188660/Analysing_Document_Similarity_Measures
 
-Cosine similarity:
+similarity = cos(theta) = A * B / ||A|| * ||B||
 
-http://en.wikipedia.org/wiki/Cosine_similarity
+Where A,B represent vectors and * is the [dot product](http://en.wikipedia.org/wiki/Dot_product)
 
-http://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient
+Before applying the cosine similarity function defined above, we first do term frequency-inverse document frequency (tf-idf).
 
-http://en.wikipedia.org/wiki/Hamming_distance
+The following definitions were lifted from [this](www.tfidf.com) 
 
-http://en.wikipedia.org/wiki/Jaccard_index
+* TF: Term Frequency, which measures how frequently a term occurs in a document. Since every document is different in length, it is possible that a term would appear much more times in long documents than shorter ones. Thus, the term frequency is often divided by the document length (aka. the total number of terms in the document) as a way of normalization:
 
-http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
+    TF(t) = (Number of times term t appears in a document) / (Total number of terms in the document).
 
-http://en.wikipedia.org/wiki/Levenshtein_distance
+* IDF: Inverse Document Frequency, which measures how important a term is. While computing TF, all terms are considered equally important. However it is known that certain terms, such as "is", "of", and "that", may appear a lot of times but have little importance. Thus we need to weigh down the frequent terms while scale up the rare ones, by computing the following:
+
+    IDF(t) = log_e(Total number of documents / Number of documents with term t in it).
+
+
+We are now in a place to do document similarity:
+
+some slick [code from stackoverflow](http://stackoverflow.com/questions/12118720/python-tf-idf-cosine-to-find-document-similarity):
+```
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.datasets import fetch_20newsgroups 
+from sklearn.metrics.pairwise import linear_kernel 
+twenty = fetch_20newsgroups() 
+cosine_similarities = linear_kernel(tfidf[0:1], tfidf).flatten() 
+related_docs_indices = cosine_similarities.argsort()[:-3:-1] 
+
+```
+Understanding linear kernel:
+
+* [linear kernel sklearn reference](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.linear_kernel.html)
+* [linear kernal explanation](http://en.wikipedia.org/wiki/Kernel_%28linear_algebra%29)
+
+[A deep understanding of distance measures](http://www.academia.edu/188660/Analysing_Document_Similarity_Measures):
+
+
+* [cosine similarity](http://en.wikipedia.org/wiki/Cosine_similarity)
+
+* [Sørensen–Dice_coefficient](http://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient)
+
+* [hamming distance](http://en.wikipedia.org/wiki/Hamming_distance)
+
+* [jaccard index](http://en.wikipedia.org/wiki/Jaccard_index)
+
+* [Jaro Winkler distance](http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance)
+
+* [Levenshtein distance](http://en.wikipedia.org/wiki/Levenshtein_distance)
 
 References:
 
@@ -214,3 +254,4 @@ References:
 * [An explanation of naive bayesian classifiers](http://en.wikipedia.org/wiki/Naive_Bayes_classifier)
 * [a Naive Bayesian Classifier - from scratch](http://machinelearningmastery.com/naive-bayes-classifier-scratch-python/)
 * [a wonderful introduction on naive classifiers from stanford](https://web.stanford.edu/class/cs124/lec/naivebayes.pdf)
+* [tf-idf](http://www.tfidf.com/)
