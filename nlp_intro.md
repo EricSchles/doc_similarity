@@ -223,7 +223,8 @@ some slick [code from stackoverflow](http://stackoverflow.com/questions/12118720
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.datasets import fetch_20newsgroups 
 from sklearn.metrics.pairwise import linear_kernel 
-twenty = fetch_20newsgroups() 
+twenty = fetch_20newsgroups()
+tfidf = TfidfVectorizer().fit_transform(twenty.data) 
 cosine_similarities = linear_kernel(tfidf[0:1], tfidf).flatten() 
 related_docs_indices = cosine_similarities.argsort()[:-3:-1] 
 
